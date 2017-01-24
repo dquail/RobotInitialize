@@ -41,6 +41,11 @@ To do stuff
 from TestHarness import *
 """
 
+Here is a video of the robot performing random actions while the data is being visualized.
+
+[![Alt text](https://img.youtube.com/vi/N1N4K3NNvtw/0.jpg)](https://www.youtube.com/watch?v=N1N4K3NNvtw)
+
+
 ##Visualizing the data
 As the robot interacts with the world, it is important to be able to visualize the actions, and causal effect. Both in real time and after the fact.
 

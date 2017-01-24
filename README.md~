@@ -30,9 +30,9 @@ algorithm.learn(reward, arm)
 ##Control the robot
 There are several important files main files:
 
-1. [Code/[RobotController.py](RobotController.py)
+1. [RobotController.py](Code/RobotController.py)
   * This contains several functions making it easy to test various different algorithms.
-2. [Code/lib_robotis_hack.py](lib_robotis_hack.py)
+2. [lib_robotis_hack.py](Code/lib_robotis_hack.py)
   * Represents one arm within a bandit. 
   * Each arm has a mean and variance from which rewards are stochastically returned
 
@@ -40,6 +40,11 @@ To do stuff
 ```python
 from TestHarness import *
 """
+
+Here is a video of the robot performing random actions while the data is being visualized.
+v=N1N4K3NNvtw
+[![Alt text](https://img.youtube.com/vi/N1N4K3NNvtw/0.jpg)](https://www.youtube.com/watch?v=N1N4K3NNvtw)
+
 
 ##Visualizing the data
 As the robot interacts with the world, it is important to be able to visualize the actions, and causal effect. Both in real time and after the fact.
