@@ -30,9 +30,9 @@ algorithm.learn(reward, arm)
 ##Control the robot
 There are several important files main files:
 
-1. [RobotController.py](Code/RobotController.py)
+1. [Code/[RobotController.py](RobotController.py)
   * This contains several functions making it easy to test various different algorithms.
-2. [lib_robotis_hack.py](Code/lib_robotis_hack.py)
+2. [Code/lib_robotis_hack.py](lib_robotis_hack.py)
   * Represents one arm within a bandit. 
   * Each arm has a mean and variance from which rewards are stochastically returned
 
