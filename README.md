@@ -14,17 +14,18 @@ Namely:
 
 
 ##Building the physical robot
-Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together, but our setup was simple.
+Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together. There are an infinite number of configurations, but one such would create a robot similar to the following.
 
 ![alt text](Images/RobotDynamixel.jpg "Dynamixel")
 
-Brackets and frames are connected to the dynamixel to build the body. In our case, we are using nuts and bolts from the BIOLOID Nut/Bolt set http://www.robotshop.com/ca/en/robotis-bioloid-bolt-nut-set.html, and Bioloid servo brackets.
-With this setup, we effectively have 2 limbs that have a single point of rotation (an elbow).
+However, our setup was much simpler. As you can see, we used just two Dynamixels, each independent and with a bracket to rotate. 
 
-![alt text](Images/OurDynamixel.jpg "Dynamixel")
+![alt text](Images/OurRobot.jpg "OurRobot")
+
+Brackets and frames are connected to the dynamixel to build the body. In our case, we are using nuts and bolts from the BIOLOID Nut/Bolt set http://www.robotshop.com/ca/en/robotis-bioloid-bolt-nut-set.html, and Bioloid servo brackets.
+With this setup, we effectively have 2 independent limbs that each have a single point of rotation (an elbow).
 
 With this type of positioning, it's possible to instruct the dynamixel to rotate to a position which would force the bracket through it's own body. The servos obviously aren't strong enough to do so, and will shut down (a red light will be displayed) because of the increased load. 
-
 
 ##Empowering the robot
 Clearly the robot will need 1) a source of power and 2) a connection to a controller (a computer). 
@@ -32,9 +33,18 @@ Clearly the robot will need 1) a source of power and 2) a connection to a contro
 To accomplish this, a simple power harness can be fashioned using two BIOLOID 3pin cables, a power adapter, a barrel connector, a ROBOTIS USB to Dynamixel Adapter, some wire cutters, and some electrical tape. Each servo will be connected to the computer via a serial bus wire, a power source, as well as a ground wire. The ROBOTIS USB to Dynamixel needs to be connected to this data as well as ground, but does not need a power supply. 
 The following is a simple schematic of our setup. 
 
-![alt text](Images/PowerHarnessSchematic.jpg "Schematic")
+![alt text](Images/Schematic.jpg "Schematic")
 
 Using the suggested parts, the harness can be constructed using the following steps:
+
+1. Label one of the 3pin connectors
+
+![alt text](Images/PowerHarness/02-label-pins.jpg "Label")
+
+2. Cut positive wire supply
+
+![alt text](Images/PowerHarness/04-cut-positive-supply-wire.jpg "Cut")
+
 
 More stuff here.
 
