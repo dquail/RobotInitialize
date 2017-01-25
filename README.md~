@@ -1,33 +1,118 @@
 #Signs of Life
 
 ##Abstract
-We want to learn applied reinforcement learning. The first step in doing so is a very practical one. Build a robot that can move freely without frying it's motors. This will serve as an introduction for anyone looking to do get a simple robot up and running so they can begin running algorithms.
+Applying reinforcement learning algorithms to real, physical, environments present a number of challenges not seen in simulated environments. In order to study and experiment with these applications, one needs a physical set up. A simple robot provides such an environment. 
 
+This article will attempt to provide the necessary instructions for anyone with a beginner level familiarity of python, to configure such a robot, and to begin to control it's movements. 
+
+Namely:
+1. Building the physical robot
+2. Powering the robot
+3. Initializing the robot
+4. Controlling the robot
+5. Monitoring the robot's sensors - real time and post operation.
 
 ##Building the physical robot
-blah blah
+Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together, but our setup was simple.
+![alt text](Images/RobotDynamixel.jpg "Dynamixel")
+Brackets and frames are connected to the dynamixel to build the body. In our case, we are using nuts and bolts from the BIOLOID Nut/Bolt set http://www.robotshop.com/ca/en/robotis-bioloid-bolt-nut-set.html, and Bioloid servo brackets.
+With this setup, we effectively have 2 limbs that have a single point of rotation (an elbow).
+![alt text](Images/OurDynamixel.jpg "Dynamixel")
+With this type of positioning, it's possible to instruct the dynamixel to rotate to a position which would force the bracket through it's own body. The servos obviously aren't strong enough to do so, and will shut down (a red light will be displayed) because of the increased load. 
 
 ##Empowering the robot
-The basic reinforcement learning framework is simple. The agent (your algorithm) determines what state it's in based off of some sensation, determines what action to take (based on what it's learned), and performs this action within the environment. The environment responds with a reward and state update. In the bandit example, there is only one state, so the agent, based on experience decides which arm to pull. Once pulled, the environment responds with a reward (the amount recieved from pulling the slot machine). If the reward was largely positive, the agent would be wise to favor this action in the future. Conversly, if the reward was negative, the agent would be wise to avoid this. This of course is over simplifying. Life, and the bandit example, is stochastic. You may pull an arm of the bandit and recieve a negative reward, but there may be a massive jackpot waiting 2 pulls away. Therein lies the balance between exploration and exploitation. A successful player at the casino would balance pulling the most optimal arm of the bandit with the reality that they may not know the most optimal, and require exploration. Nevertheless, the basic Reinforcement Loop is simple. The agent senses it's state, determines it's "best action", takes that action, and is given a reward. Given that reward, it learns what it may do in the future to perform even better.
+Clearly the robot will need 1) a source of power and 2) a connection to a controller (a computer). 
 
-![alt text](Reference/RLLoop.png "RLLoop")
+To accomplish this, a simple power harness can be fashioned using two BIOLOID 3pin cables, a power adapter, a barrel connector, a ROBOTIS USB to Dynamixel Adapter, some wire cutters, and some electrical tape. Each servo will be connected to the computer via a serial bus wire, a power source, as well as a ground wire. The ROBOTIS USB to Dynamixel needs to be connected to this data as well as ground, but does not need a power supply. 
+The following is a simple schematic of our setup. 
+
+![alt text](Images/PowerHarnessSchematic.jpg "Schematic")
+
+Using the suggested parts, the harness can be constructed using the following steps:
 
 More stuff here.
 
 ##Initialize the robot
-You need to initialize. That can be done like the following
+Once connected to the computer, the Dynamixels can configured a number of ways. Among other settings, you can restrict the allowable angles for which they can be rotated (hence preventing them from attempting to sever their own bodies). By default, the dynamixels each have an ID of 1. So it is important that we change the values to uniquely identify our servos, and prevent future collisions as future servos are added. Using [lib_robotis_hack.py](Code/lib_robotis_hack.py) this can be accomplished in just a few lines of python code. The following code demonstrates connecting to the dynamixel servos and changing a basic setting.
+
+*Note: This code doesn't exist in any of the source in this repository and should be run step by step within the python2.7 interpretor - rather than as a script:
+ 
 
 ```python
-#From TestHarness.py
-#ask algorithm for the arm it should pull
-arm = algorithm.policy()
-#pull the arm and collect the reward
-reward = bandit.pull(arm)
-#allow the algorithm to learn based on result of the arm
-algorithm.learn(reward, arm)
+
+#Note: these instructions should be run in the python interpretor one at a time rather than scripted
+
+from lib_robotis_hack import *
+
+# At this point, check your /dev/ directory for the location of the USB to Serial device; if in doubt, unplug the USB2Dynamixel, look at the /dev/ directory, then plug it back in and see which device has been added. 
+
+# For example, the upper right USB port on my computer gives the device: ttyUSB0
+
+# Create the USB to Serial channel
+# Use the device you identified above, and baud of 1Mbps
+D = USB2Dynamixel_Device(dev_name="/dev/ttyUSB0",baudrate=1000000)
+
+# Identify servos on the bus (should be only ONE at this point)
+# Should return: "FOUND A SERVO @ ID 1"
+s_list = find_servos(D)
+
+s1.write_id(2)
+
+# Plug in the next/remaining servo on your bus
+
+# Rescan for servos
+# Should return:
+# "FOUND A SERVO @ ID 1"
+# "FOUND A SERVO @ ID 2"
+s_list = find_servos(D)
+
+# Rename the second servo
+# Set this servo to ID "3"
+# Why, you ask? So that you can always plug in a new servo and have immediate access to it as ID "1" without overlapping with an existing servo on the bus
+s2 = Robotis_Servo(D,s_list[1])
+s1.write_id(3)
 
 ```
 ##Control the robot
+Now that the robot can be connected to and configured, we need to control how it moves. Using the [lib_robotis_hack.py](Code/lib_robotis_hack.py) library, moving the robot is trivial. The following are the two function signatures used to move the servos.
+
+```python
+class Robotis_Servo():
+...
+
+	def move_angle(self, ang, angvel=None, blocking=True):
+		...
+
+	def move_to_encoder(self, n): 
+```
+
+move_angle will rotate the servo at the specified angular velocity until the desired angle (in radians) is achieved. By default, the call is synchronous, the call will only after the desired angle is achieved. By setting blocking=False, this call becomes async and will return before the desired angle is achieved.
+
+move_to_encoder will rotate the servo until the desired encoding position is achieved. In the case of the dynamixels, there are 256 positions (like a clock). Each position can be achieved by calling this function.
+
+In our case, we wanted to test the robot by randomly rotating each servo every 3 seconds. This is comparable to a learning agent learning from a random walk.
+To achieve this, we create a policy that returns a random angle location between 0 and 1 (we could be much more liberal with the range, but for the desired effect of twiching this is sufficient). The control thread runs and tells each servo to go to this random location every 3 seconds.
+
+```python
+    def start(self):
+        #Start a loop where an action is taken every interval (time based) based on the policy
+
+        desiredAngle = self.policy()
+        try:
+            self.servo.move_angle(desiredAngle)
+
+        except:
+            print("!!!!!! Error moving servo")
+            pass
+
+        threading.Timer(self.secondsAllowedPerAction, self.start).start()
+
+    def policy(self):
+        #Rturn the angle to go to
+        angle = random.uniform(0.0, 1.0)
+        return angle
+```
+
 There are several important files main files:
 
 1. [RobotController.py](Code/RobotController.py)
@@ -39,7 +124,7 @@ There are several important files main files:
 To do stuff
 ```python
 from TestHarness import *
-"""
+```
 
 Here is a video of the robot performing random actions while the data is being visualized.
 
@@ -49,7 +134,23 @@ Here is a video of the robot performing random actions while the data is being v
 ##Visualizing the data
 As the robot interacts with the world, it is important to be able to visualize the actions, and causal effect. Both in real time and after the fact.
 
-To do so in real time: blah blah blah
+To visualize this data in real time, we use matplot lib in interactive mode. Every 1 seconds, each servo is polled to determine it's angle, temperature, torque (load), and voltage. A plot is generated for each servo usingn the information from the last 100 seconds/inputs.
+ 
 
-To do so after the fact. Blah blah blah
+```python
+        """
+        #add the newest to end of arrays
+        self.temperatureMeasurements.append(currentTemperature)
+        self.torqueMeasurements.append(currentTorque)
+        self.angleMeasurements.append(currentAngle)
+        self.voltageMeasurements.append(currentVoltage)
+
+        self.torqueLine.set_ydata(self.torqueMeasurements[-self.visibleMeasurements:])
+        self.temperatureLine.set_ydata(self.temperatureMeasurements[-self.visibleMeasurements:])
+        self.angleLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
+        self.voltageLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
+
+        draw()
+```
+
 

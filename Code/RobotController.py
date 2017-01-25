@@ -34,7 +34,7 @@ class RobotController:
         threading.Timer(self.secondsAllowedPerAction, self.start).start()
 
     def policy(self):
-        #Rturn the angle to go to
+        #Return the angle to go to
         angle = random.uniform(0.0, 1.0)
         return angle
 
