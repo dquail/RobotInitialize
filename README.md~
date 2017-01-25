@@ -20,7 +20,7 @@ Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose 
 
 However, our setup was much simpler. As you can see, we used just two Dynamixels, each independent and with a bracket to rotate. 
 
-![alt text](Images/OurRobot.jpg "OurRobot")
+![alt text](Images/OurRobot.JPG "OurRobot")
 
 Brackets and frames are connected to the dynamixel to build the body. In our case, we are using nuts and bolts from the BIOLOID Nut/Bolt set http://www.robotshop.com/ca/en/robotis-bioloid-bolt-nut-set.html, and Bioloid servo brackets.
 With this setup, we effectively have 2 independent limbs that each have a single point of rotation (an elbow).
@@ -33,7 +33,7 @@ Clearly the robot will need 1) a source of power and 2) a connection to a contro
 To accomplish this, a simple power harness can be fashioned using two BIOLOID 3pin cables, a power adapter, a barrel connector, a ROBOTIS USB to Dynamixel Adapter, some wire cutters, and some electrical tape. Each servo will be connected to the computer via a serial bus wire, a power source, as well as a ground wire. The ROBOTIS USB to Dynamixel needs to be connected to this data as well as ground, but does not need a power supply. 
 The following is a simple schematic of our setup. 
 
-![alt text](Images/Schematic.jpg "Schematic")
+![alt text](Images/Schematic.PNG "Schematic")
 
 Using the suggested parts, the harness can be constructed using the following steps:
 
