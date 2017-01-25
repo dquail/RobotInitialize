@@ -37,31 +37,33 @@ The following is a simple schematic of our setup.
 
 Using the suggested parts, the harness can be constructed using the following steps:
 
-1. Label one of the 3pin connectors
+Label one of the 3pin connectors
 
 ![alt text](Images/PowerHarness/02-label-pins.jpg "Label")
 
-2. Cut positive wire supply
+Cut positive wire supply
 
 ![alt text](Images/PowerHarness/04-cut-positive-supply-wire.jpg "Cut")
 
-3. Strip the ground wire so that it can be plugged into both the power barrel and the usb to dynamixel
+Strip the ground wire so that it can be plugged into both the power barrel and the usb to dynamixel
 
 ![alt text](Images/PowerHarness/06-strip-section-of-ground-wire.jpg "Strip")
 
-4. Fold the stripped ground wire so that it can be plugged into the barrel connector and then continue into the USB
+Fold the stripped ground wire so that it can be plugged into the barrel connector and then continue into the USB
 
 ![alt text](Images/PowerHarness/10-screw-groundwire-to-plug.jpg "Fold")
 
-5. Plug the cut and stripped positive wire to the barrel connector
+Plug the cut and stripped positive wire to the barrel connector
 
 ![alt text](Images/PowerHarness/10-screw-groundwire-to-plug.jpg "Screw Positive")
 
-6. Optional - Use a screw driver to pop out the terminator wire
+Optional - Use a screw driver to pop out the terminator wire
 
 ![alt text](Images/PowerHarness/15-pop-out-unneeded-terminator-wire.jpg "Screw Positive")
 
+Cover any bare wire with electric tape. The final harness when plugged in will look like the following:
 
+![alt text](Images/PowerHarness/FinalHarness.JPG "Final Harness")
 
 ##Initialize the robot
 Once connected to the computer, the Dynamixels can configured a number of ways. Among other settings, you can restrict the allowable angles for which they can be rotated (hence preventing them from attempting to sever their own bodies). By default, the dynamixels each have an ID of 1. So it is important that we change the values to uniquely identify our servos, and prevent future collisions as future servos are added. Using [lib_robotis_hack.py](Code/lib_robotis_hack.py) this can be accomplished in just a few lines of python code. The following code demonstrates connecting to the dynamixel servos and changing a basic setting.

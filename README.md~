@@ -45,8 +45,22 @@ Using the suggested parts, the harness can be constructed using the following st
 
 ![alt text](Images/PowerHarness/04-cut-positive-supply-wire.jpg "Cut")
 
+3. Strip the ground wire so that it can be plugged into both the power barrel and the usb to dynamixel
 
-More stuff here.
+![alt text](Images/PowerHarness/06-strip-section-of-ground-wire.jpg "Strip")
+
+4. Fold the stripped ground wire so that it can be plugged into the barrel connector and then continue into the USB
+
+![alt text](Images/PowerHarness/10-screw-groundwire-to-plug.jpg "Fold")
+
+5. Plug the cut and stripped positive wire to the barrel connector
+
+![alt text](Images/PowerHarness/10-screw-groundwire-to-plug.jpg "Screw Positive")
+
+6. Optional - Use a screw driver to pop out the terminator wire
+
+![alt text](Images/PowerHarness/15-pop-out-unneeded-terminator-wire.jpg "Screw Positive")
+
 
 
 ##Initialize the robot
