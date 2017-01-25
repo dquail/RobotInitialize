@@ -153,4 +153,13 @@ To visualize this data in real time, we use matplot lib in interactive mode. Eve
         draw()
 ```
 
+In addition to plotting the data in real time, we want to be able to recover this data. So at the same time that the data is being displayed dynamically, it is being persisted to disk in json format for later usage. 
+
+```python
+    js = {'angles': self.angleMeasurements, 'torques':self.torqueMeasurements, 'temperatures':self.temperatureMeasurements, 'voltages':self.voltageMeasurements}
+    filename = str(self.figureIndex) + ".json"
+
+    with open(filename, 'w') as fp:
+        json.dump(js, fp)
+```
 

@@ -40,7 +40,7 @@
       <file leaf-file-name="RobotController.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RobotController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
+            <state relative-caret-position="-151">
               <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
               <folding>
                 <element signature="e#388#418#0" expanded="true" />
@@ -52,8 +52,8 @@
       <file leaf-file-name="RobotMonitor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotMonitor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="117" column="5" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="121" selection-end-column="33" />
+            <state relative-caret-position="314">
+              <caret line="198" column="10" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -74,8 +74,8 @@
     <findStrings>
       <find>USB2Dynamixel_Device</find>
       <find>dyn</find>
-      <find>.add</find>
       <find>move_angle</find>
+      <find>.add</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -310,7 +310,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="80" width="1830" height="1000" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16284153" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -321,7 +321,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -401,7 +401,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
+        <state relative-caret-position="-151">
           <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
           <folding>
             <element signature="e#388#418#0" expanded="true" />
@@ -411,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotMonitor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="117" column="5" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="121" selection-end-column="33" />
+        <state relative-caret-position="314">
+          <caret line="198" column="10" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
