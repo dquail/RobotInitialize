@@ -14,10 +14,14 @@ Namely:
 
 ##Building the physical robot
 Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together, but our setup was simple.
+
 ![alt text](Images/RobotDynamixel.jpg "Dynamixel")
+
 Brackets and frames are connected to the dynamixel to build the body. In our case, we are using nuts and bolts from the BIOLOID Nut/Bolt set http://www.robotshop.com/ca/en/robotis-bioloid-bolt-nut-set.html, and Bioloid servo brackets.
 With this setup, we effectively have 2 limbs that have a single point of rotation (an elbow).
+
 ![alt text](Images/OurDynamixel.jpg "Dynamixel")
+
 With this type of positioning, it's possible to instruct the dynamixel to rotate to a position which would force the bracket through it's own body. The servos obviously aren't strong enough to do so, and will shut down (a red light will be displayed) because of the increased load. 
 
 ##Empowering the robot
@@ -94,36 +98,23 @@ In our case, we wanted to test the robot by randomly rotating each servo every 3
 To achieve this, we create a policy that returns a random angle location between 0 and 1 (we could be much more liberal with the range, but for the desired effect of twiching this is sufficient). The control thread runs and tells each servo to go to this random location every 3 seconds.
 
 ```python
-    def start(self):
-        #Start a loop where an action is taken every interval (time based) based on the policy
+def start(self):
+	#Start a loop where an action is taken every interval (time based) based on the policy
 
-        desiredAngle = self.policy()
-        try:
-            self.servo.move_angle(desiredAngle)
+	desiredAngle = self.policy()
+	try:
+   	 self.servo.move_angle(desiredAngle)
 
-        except:
-            print("!!!!!! Error moving servo")
-            pass
+	except:
+    		print("!!!!!! Error moving servo")
+    		pass
 
-        threading.Timer(self.secondsAllowedPerAction, self.start).start()
+	threading.Timer(self.secondsAllowedPerAction, self.start).start()
 
-    def policy(self):
-        #Rturn the angle to go to
-        angle = random.uniform(0.0, 1.0)
-        return angle
-```
-
-There are several important files main files:
-
-1. [RobotController.py](Code/RobotController.py)
-  * This contains several functions making it easy to test various different algorithms.
-2. [lib_robotis_hack.py](Code/lib_robotis_hack.py)
-  * Represents one arm within a bandit. 
-  * Each arm has a mean and variance from which rewards are stochastically returned
-
-To do stuff
-```python
-from TestHarness import *
+def policy(self):
+	#Return the angle to go to
+	angle = random.uniform(0.0, 1.0)
+	return angle
 ```
 
 Here is a video of the robot performing random actions while the data is being visualized.
@@ -138,28 +129,92 @@ To visualize this data in real time, we use matplot lib in interactive mode. Eve
  
 
 ```python
-        """
-        #add the newest to end of arrays
-        self.temperatureMeasurements.append(currentTemperature)
-        self.torqueMeasurements.append(currentTorque)
-        self.angleMeasurements.append(currentAngle)
-        self.voltageMeasurements.append(currentVoltage)
+"""
+#add the newest to end of arrays
+self.temperatureMeasurements.append(currentTemperature)
+self.torqueMeasurements.append(currentTorque)
+self.angleMeasurements.append(currentAngle)
+self.voltageMeasurements.append(currentVoltage)
 
-        self.torqueLine.set_ydata(self.torqueMeasurements[-self.visibleMeasurements:])
-        self.temperatureLine.set_ydata(self.temperatureMeasurements[-self.visibleMeasurements:])
-        self.angleLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
-        self.voltageLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
+self.torqueLine.set_ydata(self.torqueMeasurements[-self.visibleMeasurements:])
+self.temperatureLine.set_ydata(self.temperatureMeasurements[-self.visibleMeasurements:])
+self.angleLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
+self.voltageLine.set_ydata(self.angleMeasurements[-self.visibleMeasurements:])
 
-        draw()
+draw()
 ```
 
 In addition to plotting the data in real time, we want to be able to recover this data. So at the same time that the data is being displayed dynamically, it is being persisted to disk in json format for later usage. 
 
+Persisting the data:
 ```python
-    js = {'angles': self.angleMeasurements, 'torques':self.torqueMeasurements, 'temperatures':self.temperatureMeasurements, 'voltages':self.voltageMeasurements}
-    filename = str(self.figureIndex) + ".json"
+js = {'angles': self.angleMeasurements, 'torques':self.torqueMeasurements, 'temperatures':self.temperatureMeasurements, 'voltages':self.voltageMeasurements}
+filename = str(self.figureIndex) + ".json"
 
-    with open(filename, 'w') as fp:
-        json.dump(js, fp)
+with open(filename, 'w') as fp:
+json.dump(js, fp)
 ```
+Reading the data back and re-plotting:
+```python
+def plotFromFile(filename):
+    #Get the data from the file
+
+    with open(filename) as jsonDataFile:
+        data = json.load(jsonDataFile)
+
+    voltages = data['voltages']
+    print('Voltages: ' + str(voltages))
+
+    temperatures = data['temperatures']
+    print('Temperatures: ' + str(temperatures))
+
+    angles = data['angles']
+    print('Angles: ' + str(angles))
+
+    torques = data['torques']
+    print('Torques: ' + str(torques))
+
+    plt.figure(1)
+    plotTitle = "Servo " + str(filename)
+    suptitle(plotTitle, fontsize=14, fontweight='bold')
+    x = arange(0, len(temperatures), 1)
+    print('x: ' + str(x))
+
+    temperatureLine, torqueLine, angleLine, voltageLine, = plot(x, temperatures,'r', x, torques,'b', x, angles, 'g',
+                                                                                    x, voltages, 'y')
+    temperatureLine.axes.set_xlim(0,len(temperatures))
+    temperatureLine.axes.set_ylim(-100, 100)
+
+    temperatureLine.set_label("Temperature")
+    torqueLine.set_label("Torque")
+    angleLine.set_label("Angle (X 100)")
+    voltageLine.set_label("Voltage")
+    legend()
+    grid()
+    draw()
+    show()
+
+```
+
+##Putting it all together
+
+To run a test where the robot will twitch indefinitely, there is a simple testRunner available in [RobotController.py](Code/RobotController.py). 
+This will cause the robot to twitch indefinitely until the script is killed, all the while plotting the data in real time and persisting to disk.
+
+```python
+from RobotController import *
+startTest()
+```
+
+There are 2 important files that control the motion of our test robot
+
+1. [RobotController.py](Code/RobotController.py)
+  * This contains several functions making it easy to test various different algorithms.
+2. [lib_robotis_hack.py](Code/lib_robotis_hack.py)
+  * Represents one arm within a bandit. 
+  * Each arm has a mean and variance from which rewards are stochastically returned
+
+To run the test, where the robot wi
+```python
+from TestHarness import *
 

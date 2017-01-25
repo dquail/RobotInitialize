@@ -12,6 +12,7 @@ Namely:
 4. Controlling the robot
 5. Monitoring the robot's sensors - real time and post operation.
 
+
 ##Building the physical robot
 Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together, but our setup was simple.
 
@@ -24,6 +25,7 @@ With this setup, we effectively have 2 limbs that have a single point of rotatio
 
 With this type of positioning, it's possible to instruct the dynamixel to rotate to a position which would force the bracket through it's own body. The servos obviously aren't strong enough to do so, and will shut down (a red light will be displayed) because of the increased load. 
 
+
 ##Empowering the robot
 Clearly the robot will need 1) a source of power and 2) a connection to a controller (a computer). 
 
@@ -35,6 +37,7 @@ The following is a simple schematic of our setup.
 Using the suggested parts, the harness can be constructed using the following steps:
 
 More stuff here.
+
 
 ##Initialize the robot
 Once connected to the computer, the Dynamixels can configured a number of ways. Among other settings, you can restrict the allowable angles for which they can be rotated (hence preventing them from attempting to sever their own bodies). By default, the dynamixels each have an ID of 1. So it is important that we change the values to uniquely identify our servos, and prevent future collisions as future servos are added. Using [lib_robotis_hack.py](Code/lib_robotis_hack.py) this can be accomplished in just a few lines of python code. The following code demonstrates connecting to the dynamixel servos and changing a basic setting.
@@ -77,6 +80,8 @@ s2 = Robotis_Servo(D,s_list[1])
 s1.write_id(3)
 
 ```
+
+
 ##Control the robot
 Now that the robot can be connected to and configured, we need to control how it moves. Using the [lib_robotis_hack.py](Code/lib_robotis_hack.py) library, moving the robot is trivial. The following are the two function signatures used to move the servos.
 
@@ -195,6 +200,7 @@ def plotFromFile(filename):
     show()
 
 ```
+
 
 ##Putting it all together
 
