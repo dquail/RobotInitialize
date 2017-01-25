@@ -212,15 +212,3 @@ from RobotController import *
 startTest()
 ```
 
-There are 2 important files that control the motion of our test robot
-
-1. [RobotController.py](Code/RobotController.py)
-  * This contains several functions making it easy to test various different algorithms.
-2. [lib_robotis_hack.py](Code/lib_robotis_hack.py)
-  * Represents one arm within a bandit. 
-  * Each arm has a mean and variance from which rewards are stochastically returned
-
-To run the test, where the robot wi
-```python
-from TestHarness import *
-
