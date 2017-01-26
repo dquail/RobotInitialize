@@ -150,7 +150,7 @@ def policy(self):
 
 Here is a video of the robot performing random actions while the data is being visualized.
 
-[![Alt text](https://img.youtube.com/vi/N1N4K3NNvtw/0.jpg)](https://www.youtube.com/watch?v=N1N4K3NNvtw)
+[![Alt text](https://img.youtube.com/vi/hm5cEo-b-ho/0.jpg)](https://www.youtube.com/watch?v=hm5cEo-b-ho)
 
 
 ##Visualizing the data
@@ -227,6 +227,9 @@ def plotFromFile(filename):
 
 ```
 
+This is what the plot looks like for 1.5 minutes of activity.
+
+![alt text](Images/PostOperationPlot.png "Plot")
 
 ##Putting it all together
 
