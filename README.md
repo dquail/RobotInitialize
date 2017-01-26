@@ -16,7 +16,8 @@ Namely:
 ##Building the physical robot
 Our simple robot will consist of 2 Dynamixel AX-12 servos (a small device whose output shaft can be positioned at various angles via it's motor), connected to the robot's body. You could get much more sophisticated by connecting several dynamixels together. There are an infinite number of configurations, but one such would create a robot similar to the following.
 
-![alt text](Images/RobotDynamixel.jpg "Dynamixel")
+
+![Dynamixel](https://github.com/dquail/RobotInitialize/blob/master/Images/RobotDynamixel.jpg)
 
 However, our setup was much simpler. As you can see, we used just two Dynamixels, each independent and with a bracket to rotate. 
 
